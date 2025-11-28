@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.security_practice.mapper.UserRoleMapper">
+
+    <resultMap id="UserRoleResultMap" type="com.korit.security_practice.entity.UserRole">
+        <id property="userRoleId" column="user_role_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+    </resultMap>
+
+    <insert id="addUserRole">
+        insert into
+            user_role_tb
+        values
+            (0, #{userId}, #{roleId});
+    </insert>
+
+    <select id="getUserRoleList" resultMap="UserRoleResultMap">
+        select
+            *
+        from
+            user_role_tb
+        where
+            user_id = #{userId}
+    </select>
+
+    <update id="updateUserRole">
+        update
+            user_role_tb
+        set
+            role_id = #{roleId}
+        where
+            user_role_id = #{userRoleId};
+    </update>
+</mapper>
