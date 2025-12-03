@@ -1,6 +1,8 @@
 package com.korit.security_practice.config;
 
 import com.korit.security_practice.security.filter.JwtAuthenticationFilter;
+import com.korit.security_practice.security.handler.OAuth2SuccessHandler;
+import com.korit.security_practice.service.OAuth2PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,12 @@ public class SecurityConfig {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private OAuth2PrincipalService oAuth2PrincipalService;
+
+    @Autowired
+    private OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -51,6 +59,12 @@ public class SecurityConfig {
             auth.requestMatchers("/auth/**").permitAll();
             auth.anyRequest().authenticated();
         });
+
+        http.oauth2Login(oauth2 ->
+                oauth2.userInfoEndpoint(userInfo ->
+                        userInfo.userService(oAuth2PrincipalService))
+                        .successHandler(oAuth2SuccessHandler)
+                );
 
         return http.build();
     }

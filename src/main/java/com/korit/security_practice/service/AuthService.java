@@ -57,18 +57,18 @@ public class AuthService {
                 .build();
         userRoleRepository.addUserRole(userRole);
 
-        StringBuilder sb = new StringBuilder();
-        Random rd = new Random();
-
-        for(int i=0;i<5;i++){
-            sb.append(rd.nextInt(10));
-        }
-
-        Verify verify = Verify.builder()
-                .userId(optionalUser.get().getUserId())
-                .verifyCode(sb.toString())
-                .build();
-        verifyRepository.addVerifyCode(verify);
+//        StringBuilder sb = new StringBuilder();
+//        Random rd = new Random();
+//
+//        for(int i=0;i<5;i++){
+//            sb.append(rd.nextInt(10));
+//        }
+//
+//        Verify verify = Verify.builder()
+//                .userId(optionalUser.get().getUserId())
+//                .verifyCode(sb.toString())
+//                .build();
+//        verifyRepository.addVerifyCode(verify);
 
         return new ApiRespDto<>("success", "회원가입이 완료되었습니다.", optionalUser.get());
     }

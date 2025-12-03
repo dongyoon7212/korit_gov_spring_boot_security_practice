@@ -8,13 +8,15 @@
         <id property="userRoleId" column="user_role_id"/>
         <result property="userId" column="user_id"/>
         <result property="roleId" column="role_id"/>
+        <result property="createDt" column="create_dt"/>
+        <result property="updateDt" column="update_dt"/>
     </resultMap>
 
     <insert id="addUserRole">
         insert into
             user_role_tb
         values
-            (0, #{userId}, #{roleId});
+            (0, #{userId}, #{roleId}, now(), null);
     </insert>
 
     <select id="getUserRoleList" resultMap="UserRoleResultMap">
@@ -30,7 +32,8 @@
         update
             user_role_tb
         set
-            role_id = #{roleId}
+            role_id = #{roleId},
+            update_dt = now()
         where
             user_role_id = #{userRoleId};
     </update>

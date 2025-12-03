@@ -18,6 +18,8 @@
         <id property="userRoleId" column="user_role_id"/>
         <result property="userId" column="urt_user_id"/>
         <result property="roleId" column="urt_role_id"/>
+        <result property="createDt" column="urt_create_dt"/>
+        <result property="updateDt" column="urt_update_dt"/>
         <association property="role" resultMap="RoleResultMap"/>
     </resultMap>
 
@@ -31,7 +33,7 @@
         insert into
             user_tb
         values
-            (0, #{username}, #{password}, #{email}, now(), null);
+            (0, #{email}, #{password}, #{username}, now(), null);
     </insert>
 
     <select id="getUserByEmail" resultMap="UserResultMap">
@@ -46,6 +48,8 @@
             urt.user_role_id,
             urt.user_id as urt_user_id,
             urt.role_id as urt_role_id,
+            urt.create_dt as urt_create_dt,
+            urt.update_dt as urt_update_dt,
 
             rt.role_id,
             rt.role_name,
@@ -70,6 +74,8 @@
             urt.user_role_id,
             urt.user_id as urt_user_id,
             urt.role_id as urt_role_id,
+            urt.create_dt as urt_create_dt,
+            urt.update_dt as urt_update_dt,
 
             rt.role_id,
             rt.role_name,
@@ -94,6 +100,8 @@
             urt.user_role_id,
             urt.user_id as urt_user_id,
             urt.role_id as urt_role_id,
+            urt.create_dt as urt_create_dt,
+            urt.update_dt as urt_update_dt,
 
             rt.role_id,
             rt.role_name,
